@@ -51,7 +51,11 @@ gulp.task('build-html', function() {
 gulp.task('build-assets', function() {
     gulp.src('assets/images/**')
     .pipe(gulp.dest(dest_dir + '/images'))
-    .pipe(plugins.livereload());    
+    .pipe(plugins.livereload());  
+    
+    gulp.src('assets/sounds/**')
+    .pipe(gulp.dest(dest_dir + '/sounds'))
+    .pipe(plugins.livereload());  
 });
 
 gulp.task('default', ['build-js','build-css', 'build-assets'], function() {

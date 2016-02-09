@@ -10,10 +10,11 @@ app.directive('cardBoard', [ 'cardService', function(cardService) {
             'handTop'   : '@?',
             'handLeft'  : '@?'
         },
-        controller: [ '$scope', function($scope) {
-            // initialize defaults if no config is specified
+        controller: [ '$scope', 'ngAudio', function($scope, ngAudio) {
+            // initialize defaults 
+            loadSounds();
             initDefaults();
-                        
+            
             // define the card stacks
             $scope.cardDeck = cardService.getNewCardDeck();
             $scope.ownHandCount = 0;
@@ -29,6 +30,7 @@ app.directive('cardBoard', [ 'cardService', function(cardService) {
             };
             
             $scope.moveCardToHand = function(card) {
+                $scope.dealSound.play();
                 card.showBackside = false;
                 card.moveTo($scope.handLeft + ($scope.ownHandCount * 30), $scope.handTop);
                 card.isInPile = false;
@@ -56,6 +58,10 @@ app.directive('cardBoard', [ 'cardService', function(cardService) {
                 if (angular.isUndefined($scope.deckLeft)) $scope.deckLeft = 0;
                 if (angular.isUndefined($scope.handTop)) $scope.handTop = 450;
                 if (angular.isUndefined($scope.handLeft)) $scope.handLeft = 450;
+            }
+            
+            function loadSounds() {
+                $scope.dealSound = ngAudio.load('sounds/deal.wav');
             }
         }]
     }
