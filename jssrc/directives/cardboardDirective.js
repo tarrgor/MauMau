@@ -20,6 +20,7 @@ app.directive('cardBoard', [ 'cardService', function(cardService) {
             $scope.ownHandCount = 0;
             
             $scope.shuffleDeck = function() {
+                $scope.shuffleSound.play();
                 for (var i = 0; i < 250; i++) {
                     var r1 = Math.floor(Math.random() * $scope.cardDeck.length);
                     var r2 = Math.floor(Math.random() * $scope.cardDeck.length);
@@ -62,6 +63,9 @@ app.directive('cardBoard', [ 'cardService', function(cardService) {
             
             function loadSounds() {
                 $scope.dealSound = ngAudio.load('sounds/deal.wav');
+                $scope.dealSound.unbind();
+                $scope.shuffleSound = ngAudio.load('sounds/shuffle.wav');
+                $scope.shuffleSound.unbind();
             }
         }]
     }
