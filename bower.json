@@ -1,0 +1,48 @@
+{
+  "name": "maumau",
+  "description": "A card game",
+  "main": "app.js",
+  "authors": [
+    "Karrmarr"
+  ],
+  "license": "ISC",
+  "moduleType": [],
+  "homepage": "",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "jquery": "~2.2.0",
+    "angular": "^1.4.9",
+    "bootstrap": "^3.3.6",
+    "angular-animate": "^1.5.0"
+  },
+  "overrides": {
+    "bootstrap": {
+      "main": [
+        "dist/css/bootstrap.min.*",
+        "dist/fonts/*",
+        "dist/js/*.min.js"
+      ]
+    },
+    "angular": {
+      "main": [
+        "./angular.min.js",
+        "./angular.min.js.map"
+      ]
+    },
+    "angular-animate": {
+        "main": [
+            "./angular-animate.min.js",
+            "./angular-animate.min.js.map"  
+        ]  
+    },
+    "jquery": {
+      "main": "dist/jquery.min.js"
+    }
+  }
+}

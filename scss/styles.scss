@@ -1,0 +1,45 @@
+$background-color: #222;
+$text-color: #fff;
+$cardboard-color1: #373;
+$toolbar-color1: #ccc;
+
+body {
+  background-color: $background-color;
+  color: $text-color;
+}
+
+.cardboard {
+    background-color: $cardboard-color1;
+    height: 720px;
+}
+
+.toolbar {
+    background-color: $toolbar-color1;
+    height: 40px;
+}
+
+@keyframes pickUpCard {
+    from { transform: rotateZ(0deg); opacity: 1.0; }
+    to { transform: rotateZ(7deg); opacity: 0.8; }
+}
+@keyframes dropCard {
+    from { transform: rotateZ(7deg); opacity: 0.8; }
+    to { transform: rotateZ(0deg); opacity: 1.0; }
+}
+
+.card--picked-up {
+    animation: pickUpCard 0.5s;
+    transform: rotateZ(7deg); 
+    opacity: 0.8;
+}
+
+.card--dropped {
+    animation: dropCard 0.5s;
+    transform: rotateZ(0deg); 
+    opacity: 1.0;
+}
+
+.card {
+    position: absolute;
+}
+

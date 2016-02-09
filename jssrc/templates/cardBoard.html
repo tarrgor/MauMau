@@ -1,0 +1,15 @@
+<div>
+    <div class="toolbar row">
+        <div class="col-md-12">
+            <button class="btn" ng-click="shuffleDeck()">Shuffle</button>
+        </div>
+    </div>
+        
+    <div class="cardboard row">
+        <div class="col-md-12">            
+            <div class="cards">
+                <card ng-repeat="card in cardDeck" card="card" ng-click="cardClicked(card)"></card>                
+            </div>
+        </div>            
+    </div>
+</div>
