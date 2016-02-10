@@ -53,13 +53,7 @@ app.directive('cardBoard', [ 'cardService', function(cardService) {
 
             function shuffleDeck() {
                 $scope.shuffleSound.play();
-                for (var i = 0; i < 250; i++) {
-                    var r1 = Math.floor(Math.random() * $scope.cardDeck.length);
-                    var r2 = Math.floor(Math.random() * $scope.cardDeck.length);
-                    var temp = $scope.cardDeck[r1];
-                    $scope.cardDeck[r1] = $scope.cardDeck[r2];
-                    $scope.cardDeck[r2] = temp;
-                }
+                cardService.shuffleStack(CardStacks.MAIN);
             };
         }]
     }

@@ -16,11 +16,14 @@ app.factory('cardService', function() {
             });
             
             _stacks.own = new CardStack(CardStacks.OWN, {
-                position: { top: 450, left: 450 }
+                position: { top: 450, left: 450 },
+                backside: false,
+                hoffset: 30
             });
             
             _stacks.opp = new CardStack(CardStacks.OPP, {
-                position: { top: 0, left: 450 }
+                position: { top: 0, left: 450 },
+                hoffset: 30
             });
             
             _stacks.pile = new CardStack(CardStacks.PILE, {
@@ -44,6 +47,12 @@ app.factory('cardService', function() {
                 return true;
             }
             return false;
+        },
+        
+        shuffleStack: function(stack) {
+            if (_stacks.hasOwnProperty(stack)) {
+                _stacks[stack].shuffle(250);
+            }
         }
     };    
     
