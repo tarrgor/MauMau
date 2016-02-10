@@ -19,7 +19,8 @@ app.directive('card', [ '$document', '$animate', function($document, $animate) {
                 $element.css({
                     position: 'absolute',
                     left: $scope.card.left+'px',
-                    top: $scope.card.top+'px' 
+                    top: $scope.card.top+'px',
+                    'z-index': 1 
                 });
             }    
             
@@ -28,7 +29,8 @@ app.directive('card', [ '$document', '$animate', function($document, $animate) {
                 var targetLeft = $scope.card.left;
                 $element.animate({
                     top: targetTop+'px',
-                    left: targetLeft+'px' 
+                    left: targetLeft+'px',
+                    'z-index': 1 
                 }, 
                 {
                     queue: false,

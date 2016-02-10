@@ -42,9 +42,8 @@ function Card(type, value) {
     this.type = type;
     this.value = value;
     this.showBackside = true;
-    this.isInPile = true;
-    this.isInOwnHand = false;
-    
+    this.stackName = 'main';
+        
     // methods
     this.imageFileName = function() {
         return this.showBackside ? 'card-backside.png' : 'card-'+type+value+'.png';

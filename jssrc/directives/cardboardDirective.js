@@ -5,44 +5,24 @@ app.directive('cardBoard', [ 'cardService', function(cardService) {
         templateUrl: 'templates/cardBoard.html',
         replace: true,
         scope: {
-            'deckTop'   : '@?',
-            'deckLeft'  : '@?',
-            'handTop'   : '@?',
-            'handLeft'  : '@?'
         },
         controller: [ '$scope', 'ngAudio', function($scope, ngAudio) {
             // initialize defaults 
             loadSounds();
-            initDefaults();
+            initConfig();
             
             // define the card stacks
-            $scope.cardDeck = cardService.getNewCardDeck();
-            $scope.ownHandCount = 0;
+            $scope.cardDeck = [];
             
-            $scope.shuffleDeck = function() {
-                $scope.shuffleSound.play();
-                for (var i = 0; i < 250; i++) {
-                    var r1 = Math.floor(Math.random() * $scope.cardDeck.length);
-                    var r2 = Math.floor(Math.random() * $scope.cardDeck.length);
-                    var temp = $scope.cardDeck[r1];
-                    $scope.cardDeck[r1] = $scope.cardDeck[r2];
-                    $scope.cardDeck[r2] = temp;
-                }
-            };
-            
-            $scope.moveCardToHand = function(card) {
-                $scope.dealSound.play();
-                card.showBackside = false;
-                card.moveTo($scope.handLeft + ($scope.ownHandCount * 30), $scope.handTop);
-                card.isInPile = false;
-                card.isInOwnHand = true;
-                $scope.ownHandCount++;
+            $scope.newGame = function() {
+                cardService.initNewGame($scope.config);
+                $scope.cardDeck = cardService.getCardDeck(); 
+                shuffleDeck(); 
             };
             
             $scope.cardClicked = function(card) {
-                console.log('cardClicked:'+JSON.stringify(card));
-                if (card.isInPile) {
-                    $scope.moveCardToHand(card);
+                if (card.stackName == CardStacks.MAIN) {
+                    moveCardToHand(card);
                 }    
             };
             
@@ -54,11 +34,9 @@ app.directive('cardBoard', [ 'cardService', function(cardService) {
             // Private methods
             //
             
-            function initDefaults() {
-                if (angular.isUndefined($scope.deckTop)) $scope.deckTop = 0;
-                if (angular.isUndefined($scope.deckLeft)) $scope.deckLeft = 0;
-                if (angular.isUndefined($scope.handTop)) $scope.handTop = 450;
-                if (angular.isUndefined($scope.handLeft)) $scope.handLeft = 450;
+            function initConfig() {
+                $scope.config = {
+                };
             }
             
             function loadSounds() {
@@ -67,6 +45,22 @@ app.directive('cardBoard', [ 'cardService', function(cardService) {
                 $scope.shuffleSound = ngAudio.load('sounds/shuffle.wav');
                 $scope.shuffleSound.unbind();
             }
+
+            function moveCardToHand(card) {
+                $scope.dealSound.play();
+                cardService.moveTopCard(CardStacks.MAIN, CardStacks.OWN);
+            };
+
+            function shuffleDeck() {
+                $scope.shuffleSound.play();
+                for (var i = 0; i < 250; i++) {
+                    var r1 = Math.floor(Math.random() * $scope.cardDeck.length);
+                    var r2 = Math.floor(Math.random() * $scope.cardDeck.length);
+                    var temp = $scope.cardDeck[r1];
+                    $scope.cardDeck[r1] = $scope.cardDeck[r2];
+                    $scope.cardDeck[r2] = temp;
+                }
+            };
         }]
     }
 }]);
